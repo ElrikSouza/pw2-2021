@@ -1,0 +1,20 @@
+version: "3"
+services:
+  app:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "4000:${PORT}"
+    environment:
+      DBUSER: ${DBUSER}
+      DBPASS: ${DBPASS}
+      DBNAME: ${DBNAME}
+      DBHOST: db
+      PORT: ${PORT}
+
+  db:
+    image: postgres:13.4-alpine
+    environment:
+      POSTGRES_USER: ${DBUSER}
+      POSTGRES_PASSWORD: ${DBPASS}
