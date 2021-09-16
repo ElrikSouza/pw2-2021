@@ -1,34 +1,38 @@
 "use strict";
-const { Model, UUIDV4 } = require("sequelize");
+import Sequelize from "sequelize";
+import { db } from "../db.js";
 
-module.exports = (sequelize, DataTypes) => {
-  class User extends Model {}
+const { DataTypes } = Sequelize;
 
-  User.init(
+const getUserInstance = (sequelize) => {
+  return sequelize.define(
+    "User",
     {
-      user_id: DataTypes.UUID,
-      defaultValue: UUIDV4,
-      allowNull: false,
-      primaryKey: true,
+      user_id: {
+        type: DataTypes.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        allowNull: false,
+        primaryKey: true,
+      },
+      first_name: {
+        type: DataTypes.STRING(40),
+        allowNull: false,
+      },
+      last_name: {
+        type: DataTypes.STRING(40),
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING(72),
+        allowNull: false,
+      },
     },
     {
-      first_name: DataTypes.STRING(40),
-      allowNull: false,
-    },
-    {
-      last_name: DataTypes.STRING(40),
-      allowNull: false,
-    },
-    {
-      password: DataTypes.STRING(72),
-      allowNull: false,
-    },
-    {
-      sequelize,
+      sequelize: db,
       modelName: "User",
       timestamps: true,
     }
   );
-
-  return User;
 };
+
+export const UserModel = getUserInstance(db);
