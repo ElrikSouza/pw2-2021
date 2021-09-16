@@ -17,5 +17,9 @@
     "prettier": "^2.4.0",
     "sequelize-cli": "^6.2.0"
   },
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "localseq": "NODE_ENV=local sequelize",
+    "local": "node -r dotenv/config src/server.js dotenv_config_path=.local.env"
+  }
 }
