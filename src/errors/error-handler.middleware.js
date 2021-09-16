@@ -1,6 +1,6 @@
 import { ApiError } from "./api-error.js";
 
-export const errorHandlingMiddleware = async (err, _, res, _) => {
+export const errorHandlingMiddleware = async (err, req, res, _) => {
   if (!(err instanceof ApiError)) {
     return res
       .status(500)
