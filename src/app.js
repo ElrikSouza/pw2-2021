@@ -5,5 +5,5 @@ import { UsersModule } from "./users/users-routes.js";
 export const app = Express();
 
 app.use(json());
-app.use(errorHandlingMiddleware);
 app.use(UsersModule);
+app.use(errorHandlingMiddleware);
