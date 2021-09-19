@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { Unauthenticated } from "../errors/errors.js";
 
 const getJwtSecret = () => {
   const secret = process.env.JWT_SECRET;
@@ -17,4 +18,14 @@ const createToken = (user_id) => {
   return jwt.sign({ user_id }, secret, { expiresIn: "2d" });
 };
 
-export const JwtService = { createToken };
+const getUserIdFromToken = (token) => {
+  try {
+    const payload = jwt.verify(token, secret);
+
+    return payload.user_id;
+  } catch (_) {
+    throw new Unauthenticated("Invalid authentication token");
+  }
+};
+
+export const JwtService = { createToken, getUserIdFromToken };
