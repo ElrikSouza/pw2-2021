@@ -5,6 +5,10 @@ import { db } from "../db.js";
 const { DataTypes } = Sequelize;
 
 const getUserInstance = (sequelize) => {
+  if (!(sequelize instanceof Sequelize.Sequelize)) {
+    throw Error("Expected a sequelize instance");
+  }
+
   return sequelize.define(
     "Role",
     {
