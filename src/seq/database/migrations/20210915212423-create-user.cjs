@@ -16,6 +16,11 @@ module.exports = {
           key: "role_id",
         },
       },
+      email: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+      },
       first_name: {
         type: Sequelize.STRING(40),
         allowNull: false,
