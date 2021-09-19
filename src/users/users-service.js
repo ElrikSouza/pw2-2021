@@ -1,12 +1,12 @@
 import { CryptService } from "../crypt/crypt.js";
 import { RolesService } from "../roles/role-service.js";
-import { UserModel } from "./user.model.js";
+import { Users } from "./users.model.js";
 
 const signUp = async (user) => {
   const hashedPassword = await CryptService.hashPassword(user.password);
   const userRoleId = await RolesService.getUserRoleId();
 
-  await UserModel.create({
+  await Users.create({
     role_id: userRoleId,
     password: hashedPassword,
     first_name: user.first_name,
@@ -14,6 +14,6 @@ const signUp = async (user) => {
   });
 };
 
-export const UserService = {
+export const UsersService = {
   signUp,
 };

@@ -44,9 +44,9 @@ const getUserInstance = (sequelize) => {
   );
 };
 
-export const UserModel = getUserInstance(db);
+export const Users = getUserInstance(db);
 
-UserModel.hasOne(Roles, {
+Users.hasOne(Roles, {
   foreignKey: "role_id",
   type: DataTypes.UUID,
   allowNull: false,
