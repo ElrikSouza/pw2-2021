@@ -21,6 +21,10 @@ const getProductsInstance = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      product_image: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       price: {
         type: DataTypes.DECIMAL(12, 2),
         allowNull: false,
