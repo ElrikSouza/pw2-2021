@@ -14,6 +14,12 @@ export class BadRequest extends ApiError {
 
 export class Unauthenticated extends ApiError {
   constructor(message) {
-    super(400, message);
+    super(401, message);
+  }
+}
+
+export class Forbidden extends ApiError {
+  constructor(message) {
+    super(403, message);
   }
 }
