@@ -1,4 +1,4 @@
-import { writeFile } from "fs/promises";
+import { writeFile, rm } from "fs/promises";
 
 const uploadFolder = "public/uploads";
 
@@ -16,6 +16,11 @@ const saveImage = async (imageBuffer, mimeType, id) => {
   return path;
 };
 
+const deleteImage = async (imagePath) => {
+  await rm(imagePath);
+};
+
 export const ImagesService = {
   saveImage,
+  deleteImage,
 };

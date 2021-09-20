@@ -17,6 +17,16 @@ const createProduct = wrapWithErrorHandling(async (req, res) => {
   return res.status(201).send({ message: "Product has been created." });
 });
 
+const deleteProduct = wrapWithErrorHandling(async (req, res) => {
+  const { user_id } = req;
+  const { id: product_id } = req.params;
+
+  await ProductsService.deleteProduct(product_id, user_id);
+
+  return res.status(200).send({ message: "Product has been deleted" });
+});
+
 export const ProductsController = {
   createProduct,
+  deleteProduct,
 };

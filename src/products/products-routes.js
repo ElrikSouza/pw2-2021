@@ -10,4 +10,4 @@ ProductsModule.post(
   upload,
   jwtMiddleware,
   ProductsController.createProduct
-);
+).delete("/products/:id", jwtMiddleware, ProductsController.deleteProduct);

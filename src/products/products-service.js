@@ -1,17 +1,19 @@
-import { Forbidden } from "../errors/errors.js";
+import { Forbidden, NotFound } from "../errors/errors.js";
 import { ImagesService } from "../image-upload/images-service.js";
 import { PermissionsService } from "../permissions/permissions-service.js";
 import { Products } from "./product.model.js";
 import { v4 } from "uuid";
 
-const createProduct = async (product, user_id) => {
+const checkPermissions = async (user_id, message) => {
   const isUserAdm = await PermissionsService.isUserAdm(user_id);
 
   if (!isUserAdm) {
-    throw new Forbidden(
-      "This user does not have permission to create products."
-    );
+    throw new Forbidden(message);
   }
+};
+
+const createProduct = async (product, user_id) => {
+  await checkPermissions(user_id);
 
   const { product_image } = product;
   const product_id = v4();
@@ -31,6 +33,25 @@ const createProduct = async (product, user_id) => {
   });
 };
 
+const deleteProduct = async (product_id, user_id) => {
+  await checkPermissions(user_id);
+
+  const product = await Products.findOne({
+    where: { product_id },
+    attributes: ["product_image", "product_id"],
+  });
+
+  if (product === null) {
+    throw new NotFound("Product not found.");
+  }
+
+  const { product_image } = product;
+
+  await ImagesService.deleteImage(product_image);
+  await product.destroy();
+};
+
 export const ProductsService = {
   createProduct,
+  deleteProduct,
 };
