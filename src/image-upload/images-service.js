@@ -20,7 +20,12 @@ const deleteImage = async (imagePath) => {
   await rm(imagePath);
 };
 
+const replaceImage = async (path, imageBuffer) => {
+  await writeFile(path, imageBuffer);
+};
+
 export const ImagesService = {
   saveImage,
   deleteImage,
+  replaceImage,
 };
