@@ -13,7 +13,7 @@ const checkPermissions = async (user_id, message) => {
 };
 
 const createProduct = async (product, user_id) => {
-  await checkPermissions(user_id);
+  await checkPermissions(user_id, "This user cannot create products");
 
   const { product_image } = product;
   const product_id = v4();
@@ -34,7 +34,7 @@ const createProduct = async (product, user_id) => {
 };
 
 const deleteProduct = async (product_id, user_id) => {
-  await checkPermissions(user_id);
+  await checkPermissions(user_id, "This user cannot delete products");
 
   const product = await Products.findOne({
     where: { product_id },
