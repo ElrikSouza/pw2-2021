@@ -12,6 +12,9 @@ services:
       DBNAME: ${DBNAME}
       DBHOST: db
       PORT: ${PORT}
+      JWT_SECRET: ${JWT_SECRET}
+      ADM_PASS: ${ADM_PASS}
+      ADM_LOGIN: ${ADM_LOGIN}
 
   db:
     image: postgres:13.4-alpine
