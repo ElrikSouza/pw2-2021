@@ -1,4 +1,5 @@
 import multer from "multer";
+import { BadRequest } from "../errors/errors.js";
 
 const getFileExtension = (mimeType) => {
   return mimeType.split("/")[1];
@@ -22,7 +23,7 @@ export const upload = multer({
       cb(null, true);
     } else {
       cb(null, false);
-      return cb(new Error("File types allowed .jpeg, .jpg and .png!"));
+      return cb(new BadRequest("File types allowed .jpeg, .jpg and .png."));
     }
   },
 }).single("photo");
