@@ -68,9 +68,41 @@ const getAllProducts = async () => {
   return { products };
 };
 
+const editableFieldsProduct = ["product_name", "price", "in_stock"];
+
+const mergeProduct = (original, changes) => {
+  for (const field of editableFieldsProduct) {
+    if (changes[field]) {
+      original[field] = changes[field];
+    }
+  }
+};
+
+const editProduct = async (product_id, user_id, changes) => {
+  await checkPermissions(user_id, "This user cannot edit products");
+
+  const product = await Products.findOne({ where: { product_id } });
+
+  if (product === null) {
+    throw new NotFound("Product not found.");
+  }
+
+  if (changes.product_image) {
+    await ImagesService.replaceImage(
+      product.product_image,
+      changes.product_image.buffer
+    );
+  }
+
+  mergeProduct(product, changes);
+
+  await product.save();
+};
+
 export const ProductsService = {
   createProduct,
   deleteProduct,
   getOneProduct,
   getAllProducts,
+  editProduct,
 };

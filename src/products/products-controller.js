@@ -40,9 +40,23 @@ const getAllProducts = wrapWithErrorHandling(async (_, res) => {
   return res.status(200).send(products);
 });
 
+const editProduct = wrapWithErrorHandling(async (req, res) => {
+  const { id: product_id } = req.params;
+  const { body: changes, user_id } = req;
+
+  if (req.file) {
+    changes.product_image = { buffer: req.file.buffer };
+  }
+
+  await ProductsService.editProduct(product_id, user_id, changes);
+
+  return res.status(200).send({ message: "Product has been edited" });
+});
+
 export const ProductsController = {
   createProduct,
   deleteProduct,
   getOneProduct,
   getAllProducts,
+  editProduct,
 };
