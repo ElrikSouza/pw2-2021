@@ -34,8 +34,15 @@ const getOneProduct = wrapWithErrorHandling(async (req, res) => {
   return res.status(200).send(product);
 });
 
+const getAllProducts = wrapWithErrorHandling(async (_, res) => {
+  const products = await ProductsService.getAllProducts();
+
+  return res.status(200).send(products);
+});
+
 export const ProductsController = {
   createProduct,
   deleteProduct,
   getOneProduct,
+  getAllProducts,
 };

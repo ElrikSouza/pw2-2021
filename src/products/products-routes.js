@@ -12,4 +12,5 @@ ProductsModule.post(
   ProductsController.createProduct
 )
   .delete("/products/:id", jwtMiddleware, ProductsController.deleteProduct)
-  .get("/products/:id", ProductsController.getOneProduct);
+  .get("/products/:id", ProductsController.getOneProduct)
+  .get("/products", ProductsController.getAllProducts);

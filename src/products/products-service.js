@@ -61,8 +61,16 @@ const getOneProduct = async (product_id) => {
   return { product };
 };
 
+// Sem paginacao ainda
+const getAllProducts = async () => {
+  const products = await Products.findAll();
+
+  return { products };
+};
+
 export const ProductsService = {
   createProduct,
   deleteProduct,
   getOneProduct,
+  getAllProducts,
 };
