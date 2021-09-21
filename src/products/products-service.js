@@ -51,7 +51,18 @@ const deleteProduct = async (product_id, user_id) => {
   await product.destroy();
 };
 
+const getOneProduct = async (product_id) => {
+  const product = await Products.findOne({ where: { product_id } });
+
+  if (product === null) {
+    throw new NotFound("Product not found.");
+  }
+
+  return { product };
+};
+
 export const ProductsService = {
   createProduct,
   deleteProduct,
+  getOneProduct,
 };
